@@ -211,3 +211,4 @@ C:\Mithun\cursor\Support_Ticket_Management\src\SupportTicket.Api\bin\Debug\net10
 C:\Mithun\cursor\Support_Ticket_Management\src\SupportTicket.Api\bin\Debug\net10.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
 C:\Mithun\cursor\Support_Ticket_Management\src\SupportTicket.Api\bin\Debug\net10.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
 C:\Mithun\cursor\Support_Ticket_Management\src\SupportTicket.Api\bin\Debug\net10.0\runtimes\win\lib\net9.0\System.Windows.Extensions.dll
+C:\Mithun\cursor\Support_Ticket_Management\src\SupportTicket.Api\obj\Debug\net10.0\SupportTicket.Api.sourcelink.json
