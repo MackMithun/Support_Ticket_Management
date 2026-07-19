@@ -24,10 +24,17 @@ function App() {
     const query = new URLSearchParams();
     if (search) query.set('search', search);
     if (statusFilter) query.set('status', statusFilter);
-    const response = await fetch(`${API_URL}?${query.toString()}`);
-    const data = await response.json();
-    setTickets(data);
-    setLoading(false);
+
+    try {
+      const response = await fetch(`${API_URL}?${query.toString()}`);
+      const data = await response.json();
+      setTickets(data);
+      setMessage('');
+    } catch {
+      setMessage('Unable to reach the support API right now.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -54,7 +61,8 @@ function App() {
       setMessage('Ticket created successfully.');
       fetchTickets();
     } else {
-      setMessage('Please complete the required fields.');
+      const errorText = await response.text();
+      setMessage(errorText || 'Please complete the required fields.');
     }
   };
 
@@ -68,6 +76,9 @@ function App() {
     if (response.ok) {
       setMessage(`Ticket moved to ${nextStatus}.`);
       fetchTickets();
+    } else {
+      const errorText = await response.text();
+      setMessage(errorText || 'Unable to update the ticket state.');
     }
   };
 
@@ -89,7 +100,10 @@ function App() {
 
       <section className="panel-grid">
         <form className="panel" onSubmit={handleCreate}>
-          <h2>Create ticket</h2>
+          <div className="panel-title-row">
+            <h2>Create ticket</h2>
+            <span className="subtle-pill">New intake</span>
+          </div>
           <label>Title
             <input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} placeholder="Incident title" required />
           </label>
@@ -123,9 +137,11 @@ function App() {
             </select>
           </div>
 
-          {loading ? <p>Loading tickets...</p> : (
+          {loading ? <p className="empty-state">Loading tickets...</p> : (
             <div className="ticket-list">
-              {tickets.map((ticket) => (
+              {tickets.length === 0 ? (
+                <div className="empty-state">No tickets match the current filters.</div>
+              ) : tickets.map((ticket) => (
                 <article key={ticket.id} className="ticket-card">
                   <div className="ticket-top">
                     <div>
