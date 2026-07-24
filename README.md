@@ -50,6 +50,28 @@ npm run dev
 
 Open the Vite URL (default `http://localhost:5173`).
 
+Copy `frontend/.env.example` to `frontend/.env` if you need a custom API URL (default: `http://localhost:5195`).
+
+## Verify fresh clone
+
+```bash
+# 1. Clone and configure database connection string
+git clone https://github.com/MackMithun/Support_Ticket_Management.git
+cd Support_Ticket_Management
+# Edit src/SupportTicket.Api/appsettings.json → set your SQL Server instance
+
+# 2. Run tests (no SQL Server required)
+dotnet test tests/SupportTicket.Api.Tests/SupportTicket.Api.Tests.csproj
+
+# 3. Start API
+cd src/SupportTicket.Api && dotnet run
+
+# 4. Start frontend (new terminal)
+cd frontend && npm install && npm run dev
+```
+
+Expected: 10/10 tests pass; API on port 5195; UI loads tickets from the API.
+
 ## Core capabilities
 
 - Create tickets with title, description, priority, and assignee

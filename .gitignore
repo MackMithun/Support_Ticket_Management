@@ -1,0 +1,33 @@
+# Build outputs
+**/bin/
+**/obj/
+
+# Node
+node_modules/
+frontend/node_modules/
+dist/
+
+# IDE
+.vs/
+.vscode/
+*.user
+*.suo
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Environment
+.env
+.env.local
+
+# Test artifacts
+TestResults/
+coverage/
+*.trx
+
+# NuGet
+*.nupkg
+
+# Logs
+*.log

@@ -11,8 +11,11 @@
 | Planning | `ai-prompts/planning.md` | 2 | Project structure and task breakdown agreed |
 | Design | `ai-prompts/design.md` | 3 | Data model, API contract, state machine defined |
 | Implementation | `ai-prompts/implementation.md` | 4 | Backend service, controller, React UI scaffolded |
-| Debugging | `ai-prompts/debugging.md` | 2 | Fixed scaffold mismatch and port configuration |
-| Review | `ai-prompts/review.md` | 2 | Refactored validation into service layer |
+| Testing | `ai-prompts/testing.md` | 4 | Unit + integration tests; fixed DB isolation and Testing env |
+| Debugging | `ai-prompts/debugging.md` | 3 | Fixed scaffold mismatch, CORS, and port configuration |
+| Code review | `ai-prompts/code-review.md` | 4 | Layering, .gitignore, dist removal, port alignment |
+| Documentation | `ai-prompts/documentation.md` | 5 | README, contract, acceptance traceability, trade-offs |
+| Review | `ai-prompts/review.md` | 3 | Post-assessment remediation tracked in `review-fixes.md` |
 
 ## What AI did well
 
@@ -38,9 +41,16 @@
 
 ## Prompting patterns to improve
 
-- Capture prompts at each step in real time (not reconstructed after the fact)
+- ~~Capture prompts at each step in real time (not reconstructed after the fact)~~ → addressed in round 2 with `testing.md`, `code-review.md`, `documentation.md` including failures
 - Ask AI to critique its own output before accepting ("review this for edge cases")
 - Request integration test scaffolding earlier in the workflow
+
+## Round 2 remediation (62/100 feedback)
+
+After the second review, additional prompts were captured with explicit failures:
+- Integration tests failing on SQL Server startup → `Testing` environment fix (`ai-prompts/testing.md`)
+- Port 5014 vs 5195 mismatch → aligned `launchSettings.json` and `VITE_API_URL` (`ai-prompts/code-review.md`)
+- Thin acceptance criteria → traceability table with test method names (`ai-prompts/documentation.md`)
 
 ## Ownership statement
 

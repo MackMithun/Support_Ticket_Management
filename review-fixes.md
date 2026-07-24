@@ -52,6 +52,32 @@ Changes made in response to the 2026-07-24 assessment feedback (score: 32/100).
 
 ## Remaining follow-ups
 
-- Add `.gitignore` to exclude `bin/`, `obj/`, and `node_modules/` from version control
+- ~~Add `.gitignore` to exclude `bin/`, `obj/`, and `node_modules/` from version control~~ ✅
+- ~~Remove committed `dist/` bundle~~ ✅
+- ~~Add missing prompt files: testing, code-review, documentation~~ ✅
 - Add SQL Server integration test against a test container (optional)
 - Add authentication and role-based access for production use
+
+---
+
+# Round 2 Fixes (62/100 review)
+
+## Gaps addressed
+
+| Review gap | Fix applied |
+|------------|-------------|
+| Missing `testing.md`, `code-review.md`, `documentation.md` | Added all three with failure/iteration logs |
+| Thin acceptance criteria | Rewrote with test method traceability table |
+| Validation trade-offs not justified | Added PATCH vs PUT and layering rationale in `design-notes.md` |
+| No `.gitignore` | Added `.gitignore`; untracked `bin/`, `obj/`, `dist/`, `node_modules/` |
+| Committed `dist/` with wrong port | Removed `dist/` from repo; source in `frontend/` uses `VITE_API_URL` |
+| Port mismatch (5014 vs 5195) | Standardized on 5195 in `launchSettings.json` and `.http` file |
+| Test source not visible | Test `.cs` files committed; build artifacts removed from tracking |
+
+## Files added (round 2)
+
+- `.gitignore`
+- `ai-prompts/testing.md`
+- `ai-prompts/code-review.md`
+- `ai-prompts/documentation.md`
+- `frontend/.env.example`
