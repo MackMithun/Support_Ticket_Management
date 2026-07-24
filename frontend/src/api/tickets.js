@@ -18,11 +18,25 @@ export async function fetchTickets(search = '', status = '') {
   return handleResponse(response)
 }
 
+export async function fetchTicketById(id) {
+  const response = await fetch(`${API_BASE}/${id}`)
+  return handleResponse(response)
+}
+
 export async function createTicket(ticket) {
   const response = await fetch(API_BASE, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(ticket),
+  })
+  return handleResponse(response)
+}
+
+export async function updateTicket(id, updates) {
+  const response = await fetch(`${API_BASE}/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(updates),
   })
   return handleResponse(response)
 }

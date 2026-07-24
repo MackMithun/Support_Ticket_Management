@@ -47,11 +47,53 @@ body { margin: 0; }
 
 .ticket-form,
 .ticket-filters,
-.ticket-card {
+.ticket-card,
+.ticket-detail {
   background: #fff;
   border: 1px solid #dde3ef;
   border-radius: 12px;
   padding: 1rem;
+}
+
+.ticket-detail { padding: 1.25rem; }
+
+.back-button {
+  background: transparent;
+  color: #3b5bdb;
+  border: none;
+  padding: 0;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  font: inherit;
+}
+
+.back-button:hover { text-decoration: underline; background: transparent; }
+
+.ticket-edit-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.875rem;
+}
+
+.comments-section { margin-top: 1.5rem; }
+
+.comments-section h3 { margin-top: 0; }
+
+.comment-date {
+  margin-left: 0.5rem;
+  color: #6b7280;
+  font-size: 0.75rem;
+}
+
+.muted { color: #6b7280; font-size: 0.875rem; }
+
+.ticket-card--compact .ticket-card__description {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .ticket-form label,

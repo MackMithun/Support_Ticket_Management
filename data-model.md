@@ -4,7 +4,14 @@
 
 ```mermaid
 erDiagram
+    User ||--o{ Ticket : assigns
     Ticket ||--o{ Comment : has
+    User {
+        int Id PK
+        string Name
+        string Email
+        UserRole Role
+    }
     Ticket {
         int Id PK
         string Title
@@ -24,6 +31,17 @@ erDiagram
         datetime CreatedAt
     }
 ```
+
+## User
+
+| Field | Type | Required | Notes |
+|-------|------|----------|-------|
+| Id | int | auto | SQL Server identity |
+| Name | string | yes | Display name |
+| Email | string | yes | Contact email |
+| Role | enum | yes | Analyst, Agent, Admin |
+
+Seeded via `AppDbContext` (no user-management UI). `GET /api/users` supplies assignee options in the UI.
 
 ## Ticket
 

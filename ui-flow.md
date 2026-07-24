@@ -21,7 +21,22 @@ flowchart LR
 
 On mount, the UI fetches all tickets from `http://localhost:5195/api/tickets` and displays them as cards sorted by creation date (newest first, server-side).
 
-### 2. Create a ticket
+### 2. View ticket list
+
+On mount, the UI fetches all tickets and displays compact cards with a **View details** button.
+
+### 3. Open ticket detail
+
+```mermaid
+flowchart LR
+    A[Click View details] --> B[GET /api/tickets/id]
+    B --> C[Render TicketDetail panel]
+    C --> D[Show full fields, edit, status, comments]
+```
+
+`TicketDetail.jsx` loads a single ticket by ID and supports edit, status transitions, and comments.
+
+### 4. Update ticket fields
 
 ```mermaid
 flowchart LR

@@ -62,14 +62,28 @@ public class TicketsController : ControllerBase
         }
 
         var result = await _service.UpdateAsync(id, request);
-        return result.Success ? Ok(result.Value) : BadRequest(result.Error);
+        if (!result.Success)
+        {
+            return result.Error?.Contains("not found", StringComparison.OrdinalIgnoreCase) == true
+                ? NotFound()
+                : BadRequest(result.Error);
+        }
+
+        return Ok(result.Value);
     }
 
     [HttpPatch("{id:int}/status")]
     public async Task<ActionResult<Ticket>> UpdateStatus(int id, [FromBody] TicketStatus newStatus)
     {
         var result = await _service.UpdateStatusAsync(id, newStatus);
-        return result.Success ? Ok(result.Value) : BadRequest(result.Error);
+        if (!result.Success)
+        {
+            return result.Error?.Contains("not found", StringComparison.OrdinalIgnoreCase) == true
+                ? NotFound()
+                : BadRequest(result.Error);
+        }
+
+        return Ok(result.Value);
     }
 
     [HttpPost("{id:int}/comments")]
@@ -81,6 +95,13 @@ public class TicketsController : ControllerBase
         }
 
         var result = await _service.AddCommentAsync(id, request);
-        return result.Success ? Ok(result.Value) : BadRequest(result.Error);
+        if (!result.Success)
+        {
+            return result.Error?.Contains("not found", StringComparison.OrdinalIgnoreCase) == true
+                ? NotFound()
+                : BadRequest(result.Error);
+        }
+
+        return Ok(result.Value);
     }
 }

@@ -1,6 +1,18 @@
 # API Contract
 
-Base URL: `http://localhost:5195/api/tickets`
+Base URL: `http://localhost:5195`
+
+## GET /api/users
+
+Returns seeded users for assignee selection (read-only).
+
+**Response:** `200 OK` — `User[]`
+
+```json
+[{ "id": 1, "name": "Mina", "email": "mina@company.com", "role": "Agent" }]
+```
+
+---
 
 ## GET /api/tickets
 

@@ -3,7 +3,7 @@
 - **Date:** 2026-07-24
 - **Command:** `dotnet test tests/SupportTicket.Api.Tests/SupportTicket.Api.Tests.csproj`
 - **Result:** Passed
-- **Summary:** 10 tests run, 0 failed, 10 succeeded
+- **Summary:** 20 tests run, 0 failed, 20 succeeded
 
 ## Unit tests (5)
 
@@ -15,17 +15,26 @@
 | `AddCommentAsync_ShouldReject_EmptyMessage` | Passed |
 | `CreateAsync_ShouldReject_WhitespaceTitleAndDescription` | Passed |
 
-## Integration tests (5)
+## Integration tests (15)
 
 | Test | Result |
 |------|--------|
 | `PostTicket_ValidRequest_Returns201` | Passed |
 | `PostTicket_EmptyTitle_Returns400` | Passed |
-| `PatchStatus_ValidTransition_Returns200` | Passed |
+| `GetTicketById_Existing_Returns200` | Passed |
+| `PutTicket_UpdatesFields_Returns200` | Passed |
+| `GetTickets_SearchFilter_ReturnsMatching` | Passed |
+| `PatchStatus_OpenToInProgress_Returns200` | Passed |
+| `PatchStatus_InProgressToResolved_Returns200` | Passed |
+| `PatchStatus_ResolvedToClosed_Returns200` | Passed |
+| `PatchStatus_OpenToCancelled_Returns200` | Passed |
+| `PatchStatus_InProgressToCancelled_Returns200` | Passed |
 | `PatchStatus_InvalidTransition_Returns400` | Passed |
+| `PatchStatus_ClosedToAny_Returns400` | Passed |
+| `PostComment_ValidRequest_Returns200` | Passed |
 | `GetTickets_ReturnsOk` | Passed |
+| `GetUsers_ReturnsSeededUsers` | Passed |
 
-## Notes
+## State machine coverage
 
-- Integration tests use `WebApplicationFactory` with `ASPNETCORE_ENVIRONMENT=Testing` (InMemory database).
-- No SQL Server instance required for the test run.
+All five valid transitions and invalid transitions tested at HTTP level.

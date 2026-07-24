@@ -11,9 +11,16 @@ public class AppDbContext : DbContext
 
     public DbSet<Ticket> Tickets => Set<Ticket>();
     public DbSet<Comment> Comments => Set<Comment>();
+    public DbSet<User> Users => Set<User>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<User>().HasData(
+            new User { Id = 1, Name = "Mina", Email = "mina@company.com", Role = UserRole.Agent },
+            new User { Id = 2, Name = "Jordan", Email = "jordan@company.com", Role = UserRole.Agent },
+            new User { Id = 3, Name = "Asha", Email = "asha@company.com", Role = UserRole.Analyst },
+            new User { Id = 4, Name = "Admin", Email = "admin@company.com", Role = UserRole.Admin });
+
         modelBuilder.Entity<Ticket>()
             .HasMany(t => t.Comments)
             .WithOne()

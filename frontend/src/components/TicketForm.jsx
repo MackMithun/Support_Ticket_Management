@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export default function TicketForm({ onCreate, onError }) {
+export default function TicketForm({ users, onCreate, onError }) {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [priority, setPriority] = useState('Medium')
@@ -17,7 +17,7 @@ export default function TicketForm({ onCreate, onError }) {
         title: title.trim(),
         description: description.trim(),
         priority,
-        assignedTo: assignedTo.trim() || null,
+        assignedTo: assignedTo || null,
       })
       setTitle('')
       setDescription('')
@@ -49,7 +49,12 @@ export default function TicketForm({ onCreate, onError }) {
       </label>
       <label>
         Assignee
-        <input value={assignedTo} onChange={(e) => setAssignedTo(e.target.value)} />
+        <select value={assignedTo} onChange={(e) => setAssignedTo(e.target.value)}>
+          <option value="">Unassigned</option>
+          {users.map((user) => (
+            <option key={user.id} value={user.name}>{user.name}</option>
+          ))}
+        </select>
       </label>
       <button type="submit">Create</button>
     </form>
