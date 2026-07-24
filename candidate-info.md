@@ -14,5 +14,5 @@ A support ticket workspace with a .NET Core API and a React UI for creating, sea
 ## Tools Used
 - .NET 10 SDK
 - React + Vite
-- EF Core InMemory
+- EF Core + SQL Server
 - xUnit

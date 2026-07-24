@@ -42,6 +42,70 @@ public class TicketServiceTests
     }
 
     [Fact]
+    public async Task CancelFromOpen_ShouldSucceed()
+    {
+        var options = new DbContextOptionsBuilder<AppDbContext>()
+            .UseInMemoryDatabase(Guid.NewGuid().ToString())
+            .Options;
+
+        await using var context = new AppDbContext(options);
+        var service = new TicketService(context);
+
+        var created = await service.CreateAsync(new CreateTicketRequest
+        {
+            Title = "Duplicate charge",
+            Description = "Customer billed twice",
+            Priority = "Medium"
+        });
+
+        var cancelled = await service.UpdateStatusAsync(created.Value!.Id, TicketStatus.Cancelled);
+        Assert.True(cancelled.Success);
+        Assert.Equal(TicketStatus.Cancelled, cancelled.Value!.Status);
+    }
+
+    [Fact]
+    public async Task UpdateStatusAsync_ShouldFail_WhenTicketNotFound()
+    {
+        var options = new DbContextOptionsBuilder<AppDbContext>()
+            .UseInMemoryDatabase(Guid.NewGuid().ToString())
+            .Options;
+
+        await using var context = new AppDbContext(options);
+        var service = new TicketService(context);
+
+        var result = await service.UpdateStatusAsync(999, TicketStatus.InProgress);
+        Assert.False(result.Success);
+        Assert.Contains("not found", result.Error, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public async Task AddCommentAsync_ShouldReject_EmptyMessage()
+    {
+        var options = new DbContextOptionsBuilder<AppDbContext>()
+            .UseInMemoryDatabase(Guid.NewGuid().ToString())
+            .Options;
+
+        await using var context = new AppDbContext(options);
+        var service = new TicketService(context);
+
+        var created = await service.CreateAsync(new CreateTicketRequest
+        {
+            Title = "Email delay",
+            Description = "Outbound mail queue backed up",
+            Priority = "Low"
+        });
+
+        var result = await service.AddCommentAsync(created.Value!.Id, new CreateCommentRequest
+        {
+            Message = "  ",
+            CreatedBy = "Alex"
+        });
+
+        Assert.False(result.Success);
+        Assert.Contains("required", result.Error, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
     public async Task CreateAsync_ShouldReject_WhitespaceTitleAndDescription()
     {
         var options = new DbContextOptionsBuilder<AppDbContext>()
